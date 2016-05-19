@@ -48,12 +48,6 @@
 }
 
 // MARK: Properties
-- (CGSize)preferredContentSize {
-    return self.presentedViewController.preferredContentSize;
-    
-}
-
-
 - (UIView *)containerView {
      NSLog(@"%s", __func__);
    return  [super containerView];
@@ -62,7 +56,7 @@
 // MARK: Method
 - (CGRect)frameOfPresentedViewInContainerView {
      NSLog(@"%s", __func__);
-    CGRect rect = {CGPointMake(12.5, 50), self.preferredContentSize};
+    CGRect rect = {CGPointMake(12.5, 50), self.presentedViewController.preferredContentSize};
     return rect;
 }
 
@@ -70,11 +64,20 @@
     NSLog(@"%s", __func__);
     [super containerViewWillLayoutSubviews];
 }
+- (void)containerViewDidLayoutSubviews {
+     NSLog(@"%s", __func__);
+    [super containerViewDidLayoutSubviews];
+}
 
 
 // MARK: UIViewControllerTransitioningDelegate
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     return self;
 }
+
+- (void)preferredContentSizeDidChangeForChildContentContainer:(id<UIContentContainer>)container {
+    NSLog(@"%s", __func__);
+}
+
 
 @end
